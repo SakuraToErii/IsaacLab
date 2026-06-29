@@ -80,11 +80,14 @@ class RslRlPpoActorCriticMhaCfg(RslRlPpoActorCriticCfg):
     n_history: int = 5
     """Number of history frames H; must match the env group's history_length."""
 
-    nheads: int = 8
+    nheads: int = 4
     """Number of attention heads in the MHA encoder."""
 
-    encoder_hidden_dim: int | None = None
-    """Encoder hidden dim. None -> actor_hidden_dims[0]//2 (critic: critic_hidden_dims[0]//2)."""
+    encoder_hidden_dim: int | None = 256
+    """Encoder hidden dim. 256 for 4 tokens/4 heads (64 dim/head)."""
+
+    encoder_dropout: float = 0.1
+    """Dropout used in the MHA encoder projection, attention, and residual path."""
 
     is_learnable_pos_embedding: bool = True
     """Whether to add a learnable positional embedding over the H frames.
