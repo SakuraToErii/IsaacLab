@@ -26,6 +26,7 @@ isaaclab = { path = "source/isaaclab", editable = true }
 isaaclab_assets = { path = "source/isaaclab_assets", editable = true }
 isaaclab_tasks = { path = "source/isaaclab_tasks", editable = true }
 isaaclab_rl = { path = "source/isaaclab_rl", editable = true }
+rsl-rl-lib = { path = "../rsl_rl", editable = true }
 isaaclab_mimic = { path = "source/isaaclab_mimic", editable = true }
 torch = { index = "pytorch-cu128" }
 torchvision = { index = "pytorch-cu128" }
