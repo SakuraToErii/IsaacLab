@@ -64,6 +64,45 @@ class RslRlPpoActorCriticRecurrentCfg(RslRlPpoActorCriticCfg):
     """The number of RNN layers."""
 
 
+@configclass
+class RslRlPpoActorCriticMhaCfg(RslRlPpoActorCriticCfg):
+    """Configuration for the PPO actor-critic with an MHA history encoder.
+
+    History is consumed term-major flat from the env (observation_manager with
+    ``history_length`` and ``flatten_history_dim=True``). The encoder reshapes
+    it to time-major internally; ``term_dims`` must match the env's obs term
+    layout so the reshape is a correct block transpose.
+    """
+
+    class_name: str = "ActorCriticMHA"
+    """The policy class name. Default is ActorCriticMHA."""
+
+    n_history: int = 5
+    """Number of history frames H; must match the env group's history_length."""
+
+    nheads: int = 8
+    """Number of attention heads in the MHA encoder."""
+
+    encoder_hidden_dim: int | None = None
+    """Encoder hidden dim. None -> actor_hidden_dims[0]//2 (critic: critic_hidden_dims[0]//2)."""
+
+    is_learnable_pos_embedding: bool = True
+    """Whether to add a learnable positional embedding over the H frames.
+
+    Recommended on: attention is permutation-invariant, and the env's fixed
+    term-major layout gives the plain-MLP baseline temporal order for free --
+    without positional encoding the encoder throws that order away."""
+
+    use_critic_mha: bool = False
+    """Whether the critic (value head) also uses an MHA encoder. Default off."""
+
+    actor_term_dims: list[int] = MISSING
+    """Per-term single-step dims of the policy obs group, e.g. [3, 3, 3, 29, 29, 29]."""
+
+    critic_term_dims: list[int] = MISSING
+    """Per-term single-step dims of the critic obs group, e.g. [3, 3, 3, 3, 29, 29, 29]."""
+
+
 ############################
 # Algorithm configurations #
 ############################

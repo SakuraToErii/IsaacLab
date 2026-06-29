@@ -1,5 +1,41 @@
-[tool.isort]
+[project]
+name = "isaaclab-local-env"
+version = "0.1.0"
+requires-python = "==3.11.*"
+dependencies = [
+    "setuptools<81.0.0",
+    "wheel<0.45",
+    "torch==2.7.0",
+    "torchvision==0.22.0",
+    "isaaclab",
+    "isaaclab_assets",
+    "isaaclab_tasks",
+    "isaaclab_rl[rsl_rl]",
+    "isaaclab_mimic",
+]
 
+[tool.uv]
+package = false
+build-constraint-dependencies = [
+    "setuptools<81.0.0",
+    "wheel<0.45",
+]
+
+[tool.uv.sources]
+isaaclab = { path = "source/isaaclab", editable = true }
+isaaclab_assets = { path = "source/isaaclab_assets", editable = true }
+isaaclab_tasks = { path = "source/isaaclab_tasks", editable = true }
+isaaclab_rl = { path = "source/isaaclab_rl", editable = true }
+isaaclab_mimic = { path = "source/isaaclab_mimic", editable = true }
+torch = { index = "pytorch-cu128" }
+torchvision = { index = "pytorch-cu128" }
+
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true
+
+[tool.isort]
 py_version = 310
 line_length = 120
 group_by_package = true
