@@ -86,9 +86,6 @@ class RslRlPpoActorCriticMhaCfg(RslRlPpoActorCriticCfg):
     encoder_hidden_dim: int | None = 256
     """Encoder hidden dim. 256 for 4 tokens/4 heads (64 dim/head)."""
 
-    encoder_dropout: float = 0.1
-    """Dropout used in the MHA encoder projection, attention, and residual path."""
-
     is_learnable_pos_embedding: bool = True
     """Whether to add a learnable positional embedding over the H frames.
 
